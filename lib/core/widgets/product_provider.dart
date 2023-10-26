@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:demo1/product_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;

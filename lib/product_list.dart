@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:demo1/cart.dart';
 import 'package:demo1/core/widgets/app_bar.dart';
 import 'package:demo1/core/widgets/selected_product_provider.dart';
 import 'package:demo1/product_details.dart';
@@ -107,7 +108,7 @@ class _productListState extends State<productList> {
                                   const Spacer(),
                                   IconButton(onPressed: (){
                                     selectedPrduct.selected(product);
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => const productDetails()));
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  productDetails()));
                                   }, icon: Icon(Icons.arrow_forward), color: Colors.white,)
                                 ],
                               ),
@@ -121,6 +122,12 @@ class _productListState extends State<productList> {
               });
         }
       }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          cart();
+        },
+        child: Icon(Icons.shopping_cart),
+      ),
     );
   }
 }
