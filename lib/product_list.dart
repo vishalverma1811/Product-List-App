@@ -124,7 +124,7 @@ class _productListState extends State<productList> {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          cart();
+          Navigator.push(context, MaterialPageRoute(builder: (context) => cart()));
         },
         child: Icon(Icons.shopping_cart),
       ),

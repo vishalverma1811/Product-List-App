@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 part 'products_model.g.dart';
 @HiveType(typeId: 0)
 class Product {

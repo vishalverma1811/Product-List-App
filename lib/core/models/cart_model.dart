@@ -1,8 +1,13 @@
 import 'package:demo1/core/models/products_model.dart';
+import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 part 'cart_model.g.dart';
-class cartModel{
-  final Product selectedProduct;
-  int count;
 
+@HiveType(typeId: 1)
+class cartModel{
+  @HiveField(0)
+  final Product selectedProduct;
+  @HiveField(1)
+  int count;
   cartModel(this.selectedProduct, this.count);
 }

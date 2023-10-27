@@ -30,9 +30,9 @@ class _cartState extends State<cart> {
         valueListenable: cartBox.listenable(),builder: (context, box, _){
         final CartProvider = Provider.of<cartProvider>(context);
           return ListView.builder(
-              itemCount: CartProvider.items.length,
+              itemCount: CartProvider.cartItems.length,
               itemBuilder: (context, index){
-                final cartItem = CartProvider.items[index];
+                final cartItem = CartProvider.cartItems[index];
                 return ListTile(
                   leading: Image.network(cartItem.selectedProduct.image),
                   title: Text(cartItem.selectedProduct.title),

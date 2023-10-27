@@ -1,3 +1,4 @@
+import 'package:demo1/core/models/cart_model.dart';
 import 'package:demo1/core/widgets/cart_provider.dart';
 import 'package:demo1/core/widgets/selected_product_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class productDetails extends StatelessWidget {
 
     void addTo_Cart(){
       if(selectedProduct != null){
-        CartProvider.addProduct(selectedProduct);
+        CartProvider.cartItems;
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text('Added to cart'),));
       }
@@ -87,7 +88,7 @@ class productDetails extends StatelessWidget {
                         ),
                       ),
                       IconButton(onPressed: (){
-                        addTo_Cart();
+                        CartProvider.addToCart(selectedProduct);
                       }, icon: const Icon(Icons.add_shopping_cart_sharp))
                     ],
                   ),

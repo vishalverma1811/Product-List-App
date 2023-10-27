@@ -1,28 +1,26 @@
-import 'package:demo1/core/models/products_model.dart';
+import 'package:demo1/core/models/cart_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hive/hive.dart';
-import '../models/cart_model.dart';
+import '../models/products_model.dart';
 
-class cartProvider extends ChangeNotifier{
-  late Box<cartModel> cartBox;
-  List<cartModel> items = [];
+class cartProvider extends ChangeNotifier {
+  List<cartModel> cartItems = [];
 
-  cartProvider(){
-    cartBox = Hive.box<cartModel>('cart');
-    items = cartBox.values.toList();
-  }
-
-  void addProduct(Product product) {
-    final index = items.indexWhere((item) => item.selectedProduct.id == product.id);
-
-    if (index != -1) {
-      items[index].count++;
-    } else {
-      items.add(cartModel(product, 1));
+  Future<void> addToCart(Product product) async {
+    bool found = false;
+    for (var item in cartItems) {
+      if (item.selectedProduct.id == product.id) {
+        item.count++;
+        found = true;
+        break;
+      }
     }
-    // Save the updated cart in Hive
-    cartBox.put('cart', items as cartModel);
+
+    if (!found) {
+      cartItems.add(cartModel(product, 1));
+    }
+    final storageBox = await Hive.openBox<Product>('cart');
+    cartItems = storageBox.values.toList() as List<cartModel>;
     notifyListeners();
   }
-
 }
