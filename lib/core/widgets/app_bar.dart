@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:demo1/core/widgets/product_provider.dart';
+import 'package:demo1/ringtone_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import '../models/products_model.dart';
 
@@ -30,7 +32,7 @@ class _MyAppBarState extends State<MyAppBar> {
     ProductProvider();
     print('data fetched');
   }
-
+  final MethodChannel _flashlightChannel = MethodChannel('flashlight_channel');
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -59,6 +61,24 @@ class _MyAppBarState extends State<MyAppBar> {
               },
               icon: const Icon(Icons.refresh,
                   size: 30, color: Colors.black),
+            ),
+            IconButton(
+              onPressed: () async {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ringtoneList()));
+              },
+              icon: const Icon(Icons.notifications_active,
+                  size: 30, color: Colors.black),
+            ),
+            IconButton(
+              onPressed: () async {
+                try {
+                  final List<bool> arguments = [true];
+                  await _flashlightChannel.invokeMethod('turnOnFlashlight', arguments);
+                } on PlatformException catch (e) {
+                  print("Failed to turn on flashlight: ${e.message}");
+                }
+              },
+              icon: const Icon(Icons.flash_on, size: 30, color: Colors.black),
             ),
           ],
         ),

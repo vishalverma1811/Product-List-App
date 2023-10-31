@@ -5,6 +5,11 @@ import '../models/products_model.dart';
 
 class cartProvider extends ChangeNotifier {
   List<cartModel> cartItems = [];
+  final Box<cartModel> storageBox;
+
+  cartProvider() : storageBox = Hive.box<cartModel>('cart'){
+    loadCartItems();
+  }
 
   Future<void> addToCart(Product product) async {
     bool found = false;
@@ -19,8 +24,23 @@ class cartProvider extends ChangeNotifier {
     if (!found) {
       cartItems.add(cartModel(product, 1));
     }
-    final storageBox = await Hive.openBox<Product>('cart');
-    cartItems = storageBox.values.toList() as List<cartModel>;
+    saveCartItems();
     notifyListeners();
+  }
+  // Load cart items from the Hive box
+  void loadCartItems() {
+    for (var key in storageBox.keys) {
+      final item = storageBox.get(key);
+      if (item != null) {
+        cartItems.add(item);
+      }
+    }
+  }
+
+  // Save cart items to the Hive box
+  void saveCartItems() {
+    for (var item in cartItems) {
+      storageBox.put(item.selectedProduct.id, item);
+    }
   }
 }
