@@ -4,7 +4,6 @@ import 'package:demo1/ringtone_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
-import 'package:http/http.dart' as http;
 import '../models/products_model.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -18,12 +17,11 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   _MyAppBarState createState() => _MyAppBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(appBar.preferredSize.height);
+  Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
 }
 
 class _MyAppBarState extends State<MyAppBar> {
 
-  late final http.Client client;
   Future<void> clearLocalDatabase() async {
     final productsBox = await Hive.openBox<Product>('productsBox');
     await productsBox.clear();
@@ -34,7 +32,7 @@ class _MyAppBarState extends State<MyAppBar> {
     ProductProvider();
     print('data fetched');
   }
-  final MethodChannel _flashlightChannel = const MethodChannel('flashlight_channel');
+  final MethodChannel _flashlightChannel = MethodChannel('flashlight_channel');
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -66,7 +64,7 @@ class _MyAppBarState extends State<MyAppBar> {
             ),
             IconButton(
               onPressed: () async {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const ringtoneList()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ringtoneList()));
               },
               icon: const Icon(Icons.notifications_active,
                   size: 30, color: Colors.black),

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
 import '../models/products_model.dart';
 
 class ProductProvider with ChangeNotifier {
@@ -10,7 +11,7 @@ class ProductProvider with ChangeNotifier {
 
   ProductProvider() {
     productsBox = Hive.box<Product>('Products');
-    fetchProducts(http.Client());
+    fetchProducts();
   }
 
   List<Product> _products = [];
@@ -29,11 +30,11 @@ class ProductProvider with ChangeNotifier {
     }
   }
 
-  Future<List<Product>?> fetchProducts(http.Client client) async {
+  Future<void> fetchProducts() async {
 
     if(await _hasInternetConnection() == true){
       print('Internet connection available');
-      final response = await client.get(Uri.parse("https://fakestoreapi.com/products"));
+      final response = await http.get(Uri.parse("https://fakestoreapi.com/products"));
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
         final List<Product> productList = data.map((item) => Product.fromJson(item)).toList();
@@ -41,7 +42,6 @@ class ProductProvider with ChangeNotifier {
         await productsBox.addAll(productList);
         _isLoading = false;
         print('products fetched');
-        return productList;
       }
     }else {
       print('Internet not available');
@@ -51,10 +51,8 @@ class ProductProvider with ChangeNotifier {
         _isLoading = false;
         print('offline list fetched');
       }
-      return _products;
     }
     notifyListeners();
-    return null;
   }
 
 }

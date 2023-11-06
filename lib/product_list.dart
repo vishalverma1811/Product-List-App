@@ -4,6 +4,7 @@ import 'package:demo1/core/widgets/app_bar.dart';
 import 'package:demo1/core/widgets/selected_product_provider.dart';
 import 'package:demo1/product_details.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -19,7 +20,6 @@ class productList extends StatefulWidget {
 
 class _productListState extends State<productList> {
   late Box<Product> productsBox;
-  @override
   void initState() {
     super.initState();
     productsBox = Hive.box<Product>('Products');
@@ -41,7 +41,7 @@ class _productListState extends State<productList> {
         final productProvider = Provider.of<ProductProvider>(context);
         final selectedPrduct = Provider.of<selectedProduct_provider>(context);
         if(productProvider.isLoading == true){
-          return const ShimmerList();
+          return ShimmerList();
         }
         else{
           return ListView.builder(
@@ -70,11 +70,11 @@ class _productListState extends State<productList> {
                           padding: const EdgeInsets.all(10.0),
                           child: Hero(
                             tag: product.id,
-                            child: SizedBox(
+                            child: Container(
                               width: 100,
                               child: ClipRect(
                                 child: Image.network(
-                                  product.image,
+                                  product!.image,
                                   fit: BoxFit.fill,
                                 ),
                               ),
@@ -91,14 +91,14 @@ class _productListState extends State<productList> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Title: ${product.title}',
+                                  'Title: ${product?.title}',
                                   style: const TextStyle(color: Colors.white),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Price in \$: ${product.price}',
+                                  'Price in \$: ${product?.price}',
                                   style: const TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -108,8 +108,8 @@ class _productListState extends State<productList> {
                                   const Spacer(),
                                   IconButton(onPressed: (){
                                     selectedPrduct.selected(product);
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  const productDetails()));
-                                  }, icon: const Icon(Icons.arrow_forward), color: Colors.white,)
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  productDetails()));
+                                  }, icon: Icon(Icons.arrow_forward), color: Colors.white,)
                                 ],
                               ),
                             ],
@@ -124,17 +124,15 @@ class _productListState extends State<productList> {
       }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const cart()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => cart()));
         },
-        child: const Icon(Icons.shopping_cart),
+        child: Icon(Icons.shopping_cart),
       ),
     );
   }
 }
 
 class ShimmerList extends StatelessWidget {
-  const ShimmerList({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
