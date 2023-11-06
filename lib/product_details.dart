@@ -1,4 +1,3 @@
-import 'package:demo1/core/models/cart_model.dart';
 import 'package:demo1/core/widgets/cart_provider.dart';
 import 'package:demo1/core/widgets/selected_product_provider.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class productDetails extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Product Details'),
+        title: const Text('Product Details'),
       ),
       body: selectedProduct != null ?
       SingleChildScrollView(
@@ -33,7 +32,7 @@ class productDetails extends StatelessWidget {
             Center(
               child: Hero(
                 tag: selectedProduct.id,
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   height:500,
                   child: ClipRect(
@@ -54,21 +53,21 @@ class productDetails extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(8.0,8.0, 8.0,0.0),
                     child: Text(
                       'ID: ${selectedProduct.id}',
-                      style: TextStyle(fontSize: 16),
+                      style: const TextStyle(fontSize: 16),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0,0.0, 8.0,0.0),
                     child: Text(
                       'Category: ${selectedProduct.category}',
-                      style: TextStyle(fontSize: 12),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(8.0,0.0, 8.0,8.0),
                     child: Text(
-                      '${selectedProduct.title}',
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      selectedProduct.title,
+                      style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Row(
@@ -96,7 +95,7 @@ class productDetails extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Description: ${selectedProduct.description}',
-                      style: TextStyle(fontSize: 12),
+                      style: const TextStyle(fontSize: 12),
                     ),
                   ),
 
@@ -107,7 +106,7 @@ class productDetails extends StatelessWidget {
           ],
         ),
       )
-          : Center(
+          : const Center(
         child: Text('No product selected'),
       ),
     );

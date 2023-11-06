@@ -1,7 +1,6 @@
 import 'package:demo1/core/models/cart_model.dart';
 import 'package:demo1/core/widgets/cart_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +14,7 @@ class cart extends StatefulWidget {
 class _cartState extends State<cart> {
 
   late Box<cartModel> cartBox;
+  @override
   void initState() {
     super.initState();
     cartBox = Hive.box<cartModel>('cart');

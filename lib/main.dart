@@ -24,7 +24,7 @@ void main() async{
         ChangeNotifierProvider(create: (context) => selectedProduct_provider()),
         ChangeNotifierProvider(create: (context) => cartProvider())
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: productList(),
+      home: const productList(),
     );
   }
 }
