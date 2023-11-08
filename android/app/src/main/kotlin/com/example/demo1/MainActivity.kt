@@ -1,16 +1,15 @@
 package com.example.demo1
-
 import android.content.Context
 import android.database.Cursor
 import android.media.RingtoneManager
 import android.hardware.Camera
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
-import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
+
 @Suppress("DEPRECATION")
-class MainActivity: FlutterActivity() {
+class MainActivity: FlutterFragmentActivity() {
     private var camera: Camera? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
