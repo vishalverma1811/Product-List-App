@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import '../models/products_model.dart';
 
 class ProductProvider with ChangeNotifier {
@@ -31,8 +30,7 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<void> fetchProducts() async {
-
-    if(await _hasInternetConnection() == true){
+    if (await _hasInternetConnection() == true) {
       print('Internet connection available');
       final response = await http.get(Uri.parse("https://fakestoreapi.com/products"));
       if (response.statusCode == 200) {
@@ -43,10 +41,10 @@ class ProductProvider with ChangeNotifier {
         _isLoading = false;
         print('products fetched');
       }
-    }else {
+    } else {
       print('Internet not available');
       final storageBox = await Hive.openBox<Product>('Products');
-      if(storageBox.isNotEmpty){
+      if (storageBox.isNotEmpty) {
         _products = storageBox.values.toList();
         _isLoading = false;
         print('offline list fetched');
@@ -54,5 +52,4 @@ class ProductProvider with ChangeNotifier {
     }
     notifyListeners();
   }
-
 }

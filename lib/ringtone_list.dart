@@ -50,7 +50,7 @@ class _ringtoneListState extends State<ringtoneList> {
               const channel = MethodChannel('ringtone_channel');
               ringtones = await channel.invokeMethod('getRingtones');
               setState(() {});
-            }, 
+            },
                 child: const Text('Get Ringtones')),
           ],
         ),

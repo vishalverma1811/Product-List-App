@@ -2,6 +2,7 @@ import 'package:demo1/core/widgets/cart_provider.dart';
 import 'package:demo1/core/widgets/selected_product_provider.dart';
 import 'package:demo1/product_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ void main() async{
   await Hive.openBox<Product>('Products');
   Hive.registerAdapter(cartModelAdapter());
   await Hive.openBox<cartModel>('cart');
+  Stripe.publishableKey = "pk_test_51OA4W4SIsYMV4Kn2WsNFJXScWFoM53BjKV471semoF0tY5y9nKesh105vqM3MsTHymRkefWXCrgSNb4MbHp2IC2g00xAQiargr";
+  await Stripe.instance.applySettings();
   runApp(
     MultiProvider(
       providers: [

@@ -1,6 +1,5 @@
 import 'package:demo1/core/models/products_model.dart';
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 part 'cart_model.g.dart';
 
 @HiveType(typeId: 1)

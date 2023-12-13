@@ -29,17 +29,17 @@ class _cartState extends State<cart> {
       body: ValueListenableBuilder(
         valueListenable: cartBox.listenable(),builder: (context, box, _){
         final CartProvider = Provider.of<cartProvider>(context);
-          return ListView.builder(
-              itemCount: CartProvider.cartItems.length,
-              itemBuilder: (context, index){
-                final cartItem = CartProvider.cartItems[index];
-                return ListTile(
-                  leading: Image.network(cartItem.selectedProduct.image),
-                  title: Text(cartItem.selectedProduct.title),
-                  subtitle: Text('Count: ${cartItem.count}'),
-                );
-              }
-          );
+        return ListView.builder(
+            itemCount: CartProvider.cartItems.length,
+            itemBuilder: (context, index){
+              final cartItem = CartProvider.cartItems[index];
+              return ListTile(
+                leading: Image.network(cartItem.selectedProduct.image),
+                title: Text(cartItem.selectedProduct.title),
+                subtitle: Text('Count: ${cartItem.count}'),
+              );
+            }
+        );
       },
       ),
     );
